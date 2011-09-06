@@ -8,8 +8,12 @@ renderProducts = function(response) {
 	
 	rest.get('https://brita.testbackend.appspot.com/rest/products', {'headers':{'Authorization':'Bearer 3fcf95ee-1db6-4079-a240-13980383647b'}}).on('success', function(data) {
 		response.write('<ul>');
-		data.forEach(function(i) {
-			response.write('<li><a href="#">' + i.title + '</a></li>');
+		data.forEach(function(product) {
+			response.write('<li><a href="#" title="' + product.title +'">');
+			if (product.images.length > 0) {
+				response.write('<img src="' + product.images[0].url +'&size=150" alt="' + product.title +'" title="' + product.title + '"/>');
+			}
+			response.write('</a></li>');
 		});
 		response.write('</ul>');
 	}).on('complete', function(data) {
@@ -19,7 +23,6 @@ renderProducts = function(response) {
 		response.end('</body></html>');
 	});
 }
-
 
 http.createServer(function (request, response) {	
 	renderProducts(response);		
