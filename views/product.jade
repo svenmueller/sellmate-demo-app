@@ -1,4 +1,4 @@
-h1= title
+include includes/head 
 
 - if (product.images.length > 0)
 	img.product(src="#{product.images[0].url}&size=300")
@@ -8,4 +8,4 @@ h1= title
 - else
 	No Image Available.
 
-p #{product.description}
+p !{product.description}

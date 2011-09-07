@@ -1,4 +1,16 @@
-h1= title
+include includes/head
 
-ul#products
-	!= partial('_product', products);
+p	This is a simple demo product catalog. Please use the navigation menu above.
+
+p	This application is implemented using the following technologies:
+	ul
+		li		
+			commercetools.box REST API
+		li
+			a(href="http://nodejs.org") node.js
+		li
+			a(href="http://expressjs.com")	express
+		li
+			a(href="https://github.com/visionmedia/jade")	jade
+			
+p	Hosted on <a href="http://nodester.com">nodester</a>, an Node.JS™ Open Source Hosting Platform-as-a-Service.

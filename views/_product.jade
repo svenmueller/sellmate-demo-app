@@ -1,2 +1,6 @@
 a(href="/products/#{product.id}")
-	img.product(src="#{product.images[0].url}&size=150")
+	div.product
+		div.image
+			img.product(src="#{product.images[0].url}&size=150")
+		div.info
+			#{product.title}
