@@ -1,0 +1,11 @@
+h1= title
+
+- if (product.images.length > 0)
+	img.product(src="#{product.images[0].url}&size=300")
+	- if (product.images.length > 1)
+		each item in product.images
+			img.product(src="#{item.url}&size=150")
+- else
+	No Image Available.
+
+p #{product.description}
