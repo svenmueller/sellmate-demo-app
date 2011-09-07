@@ -55,6 +55,7 @@ app.configure(function(){
   app.use(express.methodOverride());
   app.use(app.router);
   app.use(express.static(__dirname + '/public'));
+app.use('/', express.errorHandler({ dump: true, stack: true }));
 });
 
 app.configure('development', function(){
