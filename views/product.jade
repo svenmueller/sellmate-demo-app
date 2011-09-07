@@ -9,3 +9,12 @@ include includes/head
 	No Image Available.
 
 p !{product.description}
+
+
+each option, i in product.options
+	div
+		select
+			option Select #{option.name}
+			each variant in product.variants
+				option #{variant.options[i]}
+

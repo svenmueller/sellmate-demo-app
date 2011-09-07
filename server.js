@@ -51,7 +51,7 @@ app.get('/products/:id', function(req, res){
 
 app.get('/products', function(req, res){
 	
-	rest.get('https://brita.testbackend.appspot.com/rest/products', {'headers':{'Authorization':'Bearer 3fcf95ee-1db6-4079-a240-13980383647b'}}).on('complete', function(data) {
+	rest.get('https://brita.testbackend.appspot.com/rest/products?fields=title,images', {'headers':{'Authorization':'Bearer 3fcf95ee-1db6-4079-a240-13980383647b'}}).on('complete', function(data) {
 		res.render('products', {
 	    	locals: {
 	      		title: 'Products'
@@ -64,7 +64,7 @@ app.get('/products', function(req, res){
 
 app.get('/collections', function(req, res){
 	
-	rest.get('https://brita.testbackend.appspot.com/rest/collections', {'headers':{'Authorization':'Bearer 3fcf95ee-1db6-4079-a240-13980383647b'}}).on('complete', function(data) {
+	rest.get('https://brita.testbackend.appspot.com/rest/collections?fields=title', {'headers':{'Authorization':'Bearer 3fcf95ee-1db6-4079-a240-13980383647b'}}).on('complete', function(data) {
 		res.render('collections', {
 	    	locals: {
 	      		title: 'Collections'
@@ -77,7 +77,7 @@ app.get('/collections', function(req, res){
 
 app.get('/collections/:id', function(req, res){
 	
-	rest.get('https://brita.testbackend.appspot.com/rest/collections/' + req.params.id, {'headers':{'Authorization':'Bearer 3fcf95ee-1db6-4079-a240-13980383647b'}}).on('complete', function(collection) {
+	rest.get('https://brita.testbackend.appspot.com/rest/collections/' + req.params.id + '?fields=title', {'headers':{'Authorization':'Bearer 3fcf95ee-1db6-4079-a240-13980383647b'}}).on('complete', function(collection) {
 		rest.get('https://brita.testbackend.appspot.com/rest/collections/' + req.params.id + '/products', {'headers':{'Authorization':'Bearer 3fcf95ee-1db6-4079-a240-13980383647b'}}).on('complete', function(products) {
 			res.render('collection', {
 		    	locals: {
