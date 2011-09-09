@@ -8,7 +8,7 @@ var sys = require('sys'),
 exports.load = function (collectionId, handler) {
 	var target = 'https://brita.testbackend.appspot.com/rest/collections/' + collectionId + '?fields=title';
 	console.time(target);
-	rest.get(target, {'headers':{'Authorization':'Bearer 3fcf95ee-1db6-4079-a240-13980383647b'}}).on('success', function(data) {
+	rest.get(target, {'headers':{'Authorization':'Bearer fbce5091-418b-4b6f-852f-2cf4030f043d'}}).on('success', function(data) {
 		handler(null, data);	
 	}).on('error', function(data) {
 		handler(new Error("Failed to load collection"), null);		
@@ -20,7 +20,7 @@ exports.load = function (collectionId, handler) {
 exports.list = function (handler) {
 	var target = 'https://brita.testbackend.appspot.com/rest/collections?fields=title';
 	console.time(target);
-	rest.get(target, {'headers':{'Authorization':'Bearer 3fcf95ee-1db6-4079-a240-13980383647b'}}).on('success', function(data) {
+	rest.get(target, {'headers':{'Authorization':'Bearer fbce5091-418b-4b6f-852f-2cf4030f043d'}}).on('success', function(data) {
 		handler(null, data);		
 	}).on('error', function(data) {
 		handler(new Error("Failed to load collections"), null);		
