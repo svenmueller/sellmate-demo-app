@@ -9,6 +9,36 @@ var sys = require('sys'),
 
 var app = module.exports = express.createServer();
 
+function NotFound(msg){
+    this.name = 'NotFound';
+    Error.call(this, msg);
+    Error.captureStackTrace(this, arguments.callee);
+}
+
+//setup the errors
+app.error(function(err, req, res, next) {
+    if (err instanceof NotFound) {
+        res.render('404', { locals: {
+			header: '#Header#'
+			,footer: '#Footer#'
+			,title : '404 - Not Found'
+			,description: ''
+			,author: ''
+			,analyticssiteid: 'XXXXXXX'
+		},status: 404, layout: false});
+    } else {
+        res.render('500', { locals: {
+			header: '#Header#'
+			,footer: '#Footer#'
+			,title : 'The Server Encountered an Error'
+			,description: ''
+			,author: ''
+			,analyticssiteid: 'XXXXXXX'
+			,error: err
+		}, status: 500 , layout: false});
+    }
+});
+
 // Configuration
 
 app.configure(function() {
@@ -16,20 +46,18 @@ app.configure(function() {
   	app.set('view engine', 'jade');
   	app.use(express.bodyParser());
   	app.use(express.methodOverride());
-  	app.use(app.router);
-  	app.use(express.static(__dirname + '/public'));	
+  	app.use(express.static(__dirname + '/public'));
+	app.use(app.router);
 });
 
 app.configure('development', function() {
-  	app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+  	//app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 	console.log("using config for 'development'");
 });
 
 app.configure('production', function() {
-  	app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 	console.log("using config for 'production'"); 
 });
-
 
 // Routes
 
@@ -84,6 +112,17 @@ app.get('/collections/:collectionId', function(req, res) {
   	});	
 });
 
+//A Route for Creating a 500 Error (Useful to keep around)
+app.get('/500', function(req, res){
+    throw new Error('This is a 500 Error');
+});
+
+
+//The 404 Route (ALWAYS Keep this as the last route)
+
+app.get('/*', function(req, res){
+    throw new NotFound;
+});
 
 
 // Route Param Preconditions
@@ -167,8 +206,6 @@ function loadCollections(req, res, next) {
     	next();
   	});
 }
-
-
 
 // Only listen on $ node app.js
 
