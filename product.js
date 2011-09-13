@@ -10,6 +10,7 @@ exports.load = function (productId, handler) {
 	var target = 'https://brita.testbackend.appspot.com/rest/products/' + productId;	
 	console.time(target);
 	rest.get(target, {'headers':{'Authorization':'Bearer fbce5091-418b-4b6f-852f-2cf4030f043d'}}).on('success', function(data) {
+		setMinMaxPrices(data);
 		handler(null, data);		
 	}).on('error', function(data) {
 		handler(new Error("Failed to load product"), null);		
@@ -21,7 +22,10 @@ exports.load = function (productId, handler) {
 exports.list = function (handler) {
 	var target = 'https://brita.testbackend.appspot.com/rest/products?fields=title,images';
 	console.time(target);
-	rest.get(target, {'headers':{'Authorization':'Bearer fbce5091-418b-4b6f-852f-2cf4030f043d'}}).on('success', function(data) {
+	rest.get(target, {'headers':{'Authorization':'Bearer fbce5091-418b-4b6f-852f-2cf4030f043d'}}).on('success', function(data) {		
+		for (var i = 0; i < data.length; i++) {
+			setMinMaxPrices(data[i]);
+		}
 		handler(null, data);		
 	}).on('error', function(data) {
 		handler(new Error("Failed to load products"), null);		
@@ -34,10 +38,26 @@ exports.listByCollection = function (collectionId, handler) {
 	var target = 'https://brita.testbackend.appspot.com/rest/collections/' + collectionId + '/products';
 	console.time(target);
 	rest.get(target, {'headers':{'Authorization':'Bearer fbce5091-418b-4b6f-852f-2cf4030f043d'}}).on('success', function(data) {
+		for (var i = 0; i < data.length; i++) {
+			setMinMaxPrices(data[i]);
+		}
 		handler(null, data);		
 	}).on('error', function(data) {
 		handler(new Error("Failed to load collection products"), null);		
 	}).on('complete', function(data) {
 		console.timeEnd(target);		
 	});
+}
+
+function setMinMaxPrices(product) {
+	var prices = new Array();
+	for (var i = 0; i < product.variants.length; i++) {
+		prices[i] = product.variants[i].price;
+	}
+	prices.sort();
+	product.price_min = prices[0];
+	product.price_max = prices[prices.length - 1];
+	if (product.price_min != product.price_max) {
+		product.price_varies = true;
+	}	
 }
