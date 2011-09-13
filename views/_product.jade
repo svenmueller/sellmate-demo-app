@@ -1,10 +1,12 @@
-a(href="/products/#{product.id}")
-	div.product
-		div.image
-			img.product(src="#{product.images[0].url}&size=150")
-		div.info
+
+div.product
+	div.image
+		img.product(src="#{product.images[0].url}&size=200")
+	div.info
+		a(href="/products/#{product.id}")
 			#{product.title}
-		div.price
+		br			
+		span
 			- if (product.price_varies)
 				#{product.price_min} to #{product.price_max}
 			- else
