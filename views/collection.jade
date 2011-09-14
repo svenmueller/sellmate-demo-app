@@ -1,8 +1,8 @@
-
-p The page lists all available products in collection <i>#{title}</i>.
-
-p	!{collection.description}
-
 div#collection.column
-	!= partial('_product', products);
+	p The page lists all available products in collection <i>#{title}</i>.
+
+	p	!{collection.description}
+
+	ol.product-list.group
+		!= partial('_product', products);
 
