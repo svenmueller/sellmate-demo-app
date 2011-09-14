@@ -3,6 +3,15 @@ body {
   	font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+h1 {
+    font-size: 24px;
+}
+
+#container {
+    margin: 20px auto 0;
+    width: 990px;
+}
+
 ul#navigation {
   margin: 0; padding: 0.8em;
   text-align: center;
@@ -28,4 +37,103 @@ div#products div.product div.info {
 div#products div.product div.image {
 	border: 1px solid #999999;
 	padding: 5px;
+}
+
+.group:after {
+    clear: both;
+    content: ".";
+    display: block;
+    height: 0;
+    visibility: hidden;
+}
+
+#product #big-image {
+    clear: both;
+    float: left;
+    min-height: 375px;
+    padding: 20px;
+    text-align: center;
+    width: 415px;
+}
+
+#product #images {
+    border-top: 1px solid #E8E8E8;
+    clear: both;
+    float: left;
+    padding: 20px 0 0;
+    width: 385px;
+}
+
+#product #images li {
+    float: left;
+    padding: 0 0 20px 20px;
+}
+
+#product #images ul,  #product #variants fieldset ol {
+    list-style: none outside none;
+	margin: 0;
+	padding: 0;
+}
+
+#product #variants fieldset ol li {
+	padding: 5px 0;
+}
+
+#product #description.full {
+    height: auto;
+    overflow: visible;
+}
+
+#product #variants fieldset {
+    border: 0 none;
+    padding: 20px;
+}
+
+#product #description {
+    background-position: center top;
+    background-repeat: no-repeat;
+    border-left: 1px solid #E8E8E8;
+    border-top: 1px solid #E8E8E8;
+    color: #6D6D6D;
+    float: left;
+    font-size: 11px;
+    line-height: 16px;
+    min-height: 250px;
+    overflow: hidden;
+    padding: 20px;
+    position: relative;
+    width: 562px;
+}
+
+#product #info {
+    float: left;
+    height: 150px;
+    padding: 20px 0 0;
+    position: relative;
+    width: 433px;
+}
+
+#product #info small {
+    color: #999999;
+    display: block;
+    font-size: 11px;
+}
+
+#product #info #starts-at {
+    bottom: 0;
+    left: 20px;
+    position: absolute;
+}
+
+#product h1, #product small {
+    padding: 0 20px 20px;
+}
+
+#product #variants {
+    float: left;
+    width: 433px;
+}
+
+#product #variants fieldset label select {
+    width: 320px;
 }

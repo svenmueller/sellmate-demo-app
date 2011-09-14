@@ -1,27 +1,45 @@
-include includes/head 
+include includes/head
 
-- if (product.images.length > 0)
-	img.product(src="#{product.images[0].url}&size=300")
-	- if (product.images.length > 1)
-		each item in product.images
-			img.product(src="#{item.url}&size=100")
-- else
-	No Image Available.
-	
-- if (product.price_varies)
-	#{product.price_min} to #{product.price_max}
-- else
-	#{product.price_min}
+div#container
+	div#product.group
+		div
+			div#big-image 
+				- if (product.images.length > 0)
+					img.product(width="400px", src="#{product.images[0].url}&size=400" )
+				- else
+					No Image Available.
+		
+			div#info
+				h1 #{product.title}
+				small by #{product.vendor}
+		
+				div#starts-at
+					- if (product.price_varies)
+						#{product.price_min} to #{product.price_max}
+					- else
+						#{product.price_min}
+			form#variants
+				fieldset
+					ol
+						each option, i in product.options
+							li
+								label
+									select
+										option Select #{option.name}
+										each variant in product.variants
+											option #{variant.options[i]}
+			
+				
+		div#images.group
+			- if (product.images.length > 1)
+				ul
+					each item in product.images
+						li
+							img.product(width="50px", src="#{item.url}&size=50")
 
-p !{product.description}
-
-
-each option, i in product.options
-	div
-		select
-			option Select #{option.name}
-			each variant in product.variants
-				option #{variant.options[i]}
+		div#description.full
+			div.description-body
+				!{product.description}
 
 include includes/foot
 
