@@ -24,19 +24,61 @@ ul#navigation li {
 	padding: 0;
 }
 
-div#products div.product {
-	float: left;
-	margin: 5px;
+.product-list {
+    clear: both;
+    overflow: hidden;
+    padding: 10px 0 0 20px;
 }
 
-div#products div.product div.info {
-	padding-top: 5px;
+.product-list li {
+    border: 1px solid #F2F2F2;
+    display: block;
+    float: left;
+    height: 225px;
+    margin: 10px 10px 0 0;
+    position: relative;
+    position: relative;
+    width: 180px;
 }
 
+.product-list li div.image {
+    background-color: #FFFFFF;
+    height: 195px;
+    text-align: center;
+}
 
-div#products div.product div.image {
-	border: 1px solid #999999;
-	padding: 5px;
+.product-list li div.image img {
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    margin: 10px 10px 0;
+    min-height: 150px;
+    overflow: hidden;
+    padding: 0;
+    width: 160px;
+}
+
+.product-list li div.image .title {
+    color: #474747;
+    display: block;
+    font-size: 11px;
+    font-weight: normal;
+    height: 45px;
+    line-height: 14px;
+    margin: 0 10px;
+    overflow: hidden;
+    padding: 0;
+}
+
+.product-list li .price {
+    border-top: 1px solid #F2F2F2;
+    font-size: 11px;
+    padding: 5px 10px;
+}
+
+.product-list li .price strong {
+    display: inline;
+    float: right;
+    margin-top: 1px;
 }
 
 .group:after {
@@ -69,7 +111,7 @@ div#products div.product div.image {
     padding: 0 0 20px 20px;
 }
 
-#product #images ul,  #product #variants fieldset ol, #product #description ul.vendor-category {
+#product #images ul,  #product #variants fieldset ol, #product #description ul.vendor-category, #collection ol.product-list {
     list-style: none outside none;
 	margin: 0;
 	padding: 0;
@@ -123,6 +165,7 @@ div#products div.product div.image {
     bottom: 0;
     left: 20px;
     position: absolute;
+	font-size: 16px;
 }
 
 #product h1 {

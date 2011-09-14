@@ -1,12 +1,11 @@
 
-div.product
+li.collection-item
 	div.image
-		img.product(src="#{product.images[0].url}&size=200")
-	div.info
-		a(href="/products/#{product.id}")
-			#{product.title}
-		br			
-		span
+		img.product(src="#{product.images[0].url}&size=160")
+		strong.title #{product.title}
+	div.price.group
+		a(href="/products/#{product.id}") details		
+		strong
 			- if (product.price_varies)
 				#{product.price_min} to #{product.price_max}
 			- else

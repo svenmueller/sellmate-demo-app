@@ -1,9 +1,5 @@
-include includes/head
 
-div#container
-	p The page lists all available collections.
+p The page lists all available collections.
 
-	div#collections
-		!= partial('_collection', collections);
-	
-include includes/foot
+div#collections
+	!= partial('_collection', collections);

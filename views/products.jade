@@ -1,9 +1,5 @@
-include includes/head
-
-div#container
+div#collection.column
 	p The page lists all available products.
 
-	div#products
+	ol.product-list.group
 		!= partial('_product', products);
-	
-include includes/foot
