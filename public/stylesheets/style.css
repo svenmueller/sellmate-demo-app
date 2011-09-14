@@ -69,7 +69,7 @@ div#products div.product div.image {
     padding: 0 0 20px 20px;
 }
 
-#product #images ul,  #product #variants fieldset ol {
+#product #images ul,  #product #variants fieldset ol, #product #description ul.vendor-category {
     list-style: none outside none;
 	margin: 0;
 	padding: 0;
@@ -136,4 +136,23 @@ div#products div.product div.image {
 
 #product #variants fieldset label select {
     width: 320px;
+}
+
+#product #description .vendor-category {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+
+#product #description .vendor-category li {
+    color: #6D6D6D;
+    display: inline;
+    margin: 0 0 0 10px;
+}
+
+.header4 {
+	font-size: 16px;
+	display: block;
+	padding-bottom: 20px;
+	color: black;
 }

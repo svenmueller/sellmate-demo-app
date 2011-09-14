@@ -38,6 +38,10 @@ div#container
 							img.product(width="50px", src="#{item.url}&size=50")
 
 		div#description.full
+			span.header4 Product Description
+			ul.vendor-category
+				li vendor: #{product.vendor}
+				li category: #{product.product_type}
 			div.description-body
 				!{product.description}
 
