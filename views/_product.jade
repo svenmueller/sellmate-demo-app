@@ -4,10 +4,10 @@ li.collection-item
 		img.product(src="#{product.images[0].url}&size=160")
 		strong.title #{product.title}
 	div.price.group
-		a(href="/products/#{product.id}") details		
+		a(href="/products/#{product.id}") Details		
 		strong
 			- if (product.price_varies)
-				#{product.price_min} to #{product.price_max}
+				#{product.price_min} € to #{product.price_max} €
 			- else
-				#{product.price_min}
+				#{product.price_min} €
 				

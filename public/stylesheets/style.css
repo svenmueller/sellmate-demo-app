@@ -39,6 +39,7 @@ ul#navigation li {
     position: relative;
     position: relative;
     width: 180px;
+	cursor: pointer;
 }
 
 .product-list li div.image {
@@ -55,6 +56,10 @@ ul#navigation li {
     overflow: hidden;
     padding: 0;
     width: 160px;
+}
+
+.product-list li:hover {
+    border: 1px solid #CCCCCC;
 }
 
 .product-list li div.image .title {

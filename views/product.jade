@@ -1,3 +1,13 @@
+script
+	$().ready(function() {
+		$('#images a').each(function(i, item) {
+			$(item).click(function(event) {
+				$('#big-image img').attr('src', $(item).attr('href'))
+				event.preventDefault();
+			});
+		});
+	});
+
 
 div#product.group
 	div
@@ -13,27 +23,32 @@ div#product.group
 	
 			div#starts-at
 				- if (product.price_varies)
-					#{product.price_min} to #{product.price_max}
+					#{product.price_min} € to #{product.price_max} €
 				- else
 					#{product.price_min}
+					
 		form#variants
 			fieldset
 				ol
-					each option, i in product.options
-						li
-							label
-								select
-									option Select #{option.name}
-									each variant in product.variants
-										option #{variant.options[i]}
-		
-			
+					li
+						label
+							select
+								each variant in product.variants
+									- var label = ""
+									option
+										each option, i in product.options
+											#{variant.options[i]}
+											- if (i < (product.options.length - 1))
+												/
+										\(#{variant.price} €)
+					
 	div#images.group
 		- if (product.images.length > 1)
 			ul
 				each item in product.images
 					li
-						img.product(width="50px", src="#{item.url}&size=50")
+						a(href="#{item.url}&size=400")
+							img.product(width="50px", src="#{item.url}&size=50")
 
 	div#description.full
 		span.header4 Product Description
