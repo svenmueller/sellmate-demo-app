@@ -14,7 +14,7 @@ script
 div#product.group
 	div
 		div#big-image
-			a#big-image-zoom.cloud-zoom(href="#{product.images[0].url}&size=600", rel="adjustX: 10, adjustY:-4")
+			a#big-image-zoom.cloud-zoom(href="#{product.images[0].url}&size=600", rel="adjustX: 10, adjustY:-4", title="#{product.title}", alt="#{product.title}")
 				- if (product.images.length > 0)
 					img.product(width="400px", src="#{product.images[0].url}&size=400" )
 				- else
@@ -50,8 +50,8 @@ div#product.group
 			ul
 				each item in product.images
 					li
-						a.cloud-zoom-gallery(href="#{item.url}&size=600", rel="useZoom: 'big-image-zoom', smallImage: '#{item.url}&size=400'")
-							img.product(width="50px", src="#{item.url}&size=50")
+						a.cloud-zoom-gallery(href="#{item.url}&size=600", rel="useZoom: 'big-image-zoom', smallImage: '#{item.url}&size=400'", title="#{product.title}")
+							img.product(width="50px", src="#{item.url}&size=50", alt="#{product.title}")
 
 	div#description.full
 		span.header4 Product Description
