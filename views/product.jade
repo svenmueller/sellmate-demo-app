@@ -1,24 +1,12 @@
-script
-	/*
-	$().ready(function() {
-		$('#images a').each(function(i, item) {
-			$(item).click(function(event) {
-				$('#big-image img').attr('src', $(item).attr('href'))
-				event.preventDefault();
-			});
-		});
-	});
-	*/
-
-
 div#product.group
 	div
 		div#big-image
-			a#big-image-zoom.cloud-zoom(href="#{product.images[0].url}&size=600", rel="adjustX: 10, adjustY:-4", title="#{product.title}", alt="#{product.title}")
-				- if (product.images.length > 0)
-					img.product(width="400px", src="#{product.images[0].url}&size=400" )
-				- else
-					No Image Available.
+			- if (product.images.length > 0)
+				a#big-image-zoom.cloud-zoom(href="#{product.images[0].url}&size=600", rel="adjustX: 10, adjustY:-4", title="#{product.title}", alt="#{product.title}")
+					- if (product.images.length > 0)
+						img.product(width="400px", src="#{product.images[0].url}&size=400" )
+					- else
+						No Image Available.
 	
 		div#info
 			h1 #{product.title}
@@ -60,4 +48,3 @@ div#product.group
 			li category: #{product.product_type}
 		div.description-body
 			!{product.description}
-

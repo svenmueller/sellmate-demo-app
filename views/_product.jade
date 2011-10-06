@@ -1,7 +1,8 @@
 
 li.collection-item
 	div.image
-		img.product(src="#{product.images[0].url}&size=160")
+		- if (product.images.length > 0)
+			img.product(src="#{product.images[0].url}&size=160")
 		strong.title #{product.title}
 	div.price.group
 		a(href="/products/#{product.id}") Details		

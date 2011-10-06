@@ -51,7 +51,7 @@ app.configure(function() {
 });
 
 app.configure('development', function() {
-  	//app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+  	app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 	console.log("using config for 'development'");
 });
 
@@ -110,6 +110,11 @@ app.get('/collections/:collectionId', function(req, res) {
 		'products': req.products,
 		'collection': req.collection
   	});	
+});
+
+app.post('/products', createProduct, function(req, res) {
+	console.log("create product");
+	res.redirect('/products/' + req.product.id);
 });
 
 //A Route for Creating a 500 Error (Useful to keep around)
@@ -203,6 +208,24 @@ function loadCollections(req, res, next) {
 			return next(new Error('failed to find collections'));
 		}
     	req.collections = collections;
+    	next();
+  	});
+}
+
+function createProduct(req, res, next) {
+	var newProduct = {};
+	newProduct.title = "TEST Product";
+	newProduct.vendor = "vendor 1";
+	newProduct.product_type = "type 1";
+	newProduct.options = [{"name" : "size"}];
+	Product.create(newProduct, function(err, product) {
+		if (err) {
+			return next(err);
+		}
+    	if (!product) {
+			return next(new Error('failed to create product'));
+		}
+    	req.prodúct = product;
     	next();
   	});
 }

@@ -50,6 +50,20 @@ exports.listByCollection = function (collectionId, handler) {
 	});
 }
 
+
+exports.create = function (product, handler) {
+	var target = Config.shopUrl + '/rest/products';
+	console.time(target);
+	rest.post(target, {'headers':{'Authorization':'Bearer ' + Config.accessToken, 'Content-Type':'application/json'}, data: JSON.stringify(product)}).on('success', function(data) {
+		setMinMaxPrices(data);
+		handler(null, data);		
+	}).on('error', function(data) {
+		handler(new Error("Failed to create product"), null);		
+	}).on('complete', function(data) {
+		console.timeEnd(target);		
+	});
+}
+
 function setMinMaxPrices(product) {
 	var prices = new Array();
 	for (var i = 0; i < product.variants.length; i++) {
