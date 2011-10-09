@@ -57,9 +57,6 @@ function Request(uri, options) {
     method: this.options.method,
     headers: this.headers
   });
-
-console.log(options.data);
-console.log(this.headers);
   
   this._makeRequest();
 }
@@ -114,7 +111,6 @@ mixin(Request.prototype, {
 	// 'end' replaced with 'close'
       response.on('close', function() {
          if (self.options.parser) {
-			console.log(body);
            self.options.parser.call(response, body, function(parsedData) {
 
              self._fireEvents(parsedData, response);
@@ -158,8 +154,6 @@ self._responseHandler(response);
       });
     } else {
       if (this.options.data) {
-	console.log('YEAH!');
-	console.log(this.options.data.toString())
         this.request.write(this.options.data.toString(), this.options.encoding || 'utf8');
       }
 this.request.end();

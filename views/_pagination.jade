@@ -1,0 +1,18 @@
+div.paginate
+	- if (pages > 1)
+		ul
+			-if (current > 1)
+				a(href="/products/page/#{current - 1}")
+					strong &lsaquo;
+			- for (page = 1; page <= pages; page++)
+				- if (Math.abs(current - page) <= 5)
+					li
+						- if (page == current)
+							a.active(href="/products/page/#{page}") #{page}
+						- else
+							a(href="/products/page/#{page}") #{page}
+			-if (current < pages)
+				a(href="/products/page/#{current - 1}")
+					strong &rsaquo;
+				
+		

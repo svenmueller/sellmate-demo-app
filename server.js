@@ -4,7 +4,8 @@
 var sys = require('sys'),
 	express = require('express'),
 	http = require('http'),
-	Collection = require('./collection');
+	Collection = require('./collection'),
+	Config = require('./config'),
 	Product = require('./product');
 
 var app = module.exports = express.createServer();
@@ -69,6 +70,18 @@ app.get('/', function(req, res) {
   });
 });
 
+app.get('/products/page/:page', function(req, res) {
+	console.log("loading products");
+	res.render('products', {
+	    locals: {
+			title: 'Products'
+	   	},
+		'products': req.products,
+		'current': req.params.page,
+		'pages': parseInt(req.count / Config.pageLimit) + ((req.count % Config.pageLimit)?1:0),
+		'productsCount': req.count
+	});	
+});
 
 app.get('/products/:productId', function(req, res) {
 	console.log("loading product");
@@ -81,14 +94,9 @@ app.get('/products/:productId', function(req, res) {
 });
 
 
-app.get('/products', loadProducts, function(req, res) {
+app.get('/products', function(req, res) {
 	console.log("loading products");
-	res.render('products', {
-	    locals: {
-			title: 'Products'
-	   	},
-		'products': req.products
-	});	
+	res.redirect('/products/page/1');
 });
 
 app.get('/collections', loadCollections, function(req, res) {
@@ -173,8 +181,35 @@ app.param('collectionId', function(req, res, next, id) {
   	});
 })
 
+app.param('page', function(req, res, next, page) {
+	Product.count(function(err, count) {
+		if (err) {
+			return next(err);
+		}
+    	if (!count) {
+			return next(new Error('failed to count products'));
+		}
+    	req.count = count;
+    	next();
+  	});
+})
+
+app.param('page', function(req, res, next, page) {
+	var limit = Config.pageLimit;
+	Product.list(page, limit, function(err, products) {
+		if (err) {
+			return next(err);
+		}
+    	if (!products) {
+			return next(new Error('failed to find products'));
+		}
+    	req.products = products;
+    	next();
+  	});
+})
+
 function loadProducts(req, res, next) {
-	Product.list(function(err, products) {
+	Product.list(1, Config.pageLimit, function(err, products) {
 		if (err) {
 			return next(err);
 		}

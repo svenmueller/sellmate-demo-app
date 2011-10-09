@@ -20,8 +20,22 @@ exports.load = function (productId, handler) {
 	});
 }
 
-exports.list = function (handler) {
-	var target = Config.shopUrl + '/rest/products?fields=title,images';
+exports.count = function (handler) {	
+	var target = Config.shopUrl + '/rest/products/count';	
+	console.time(target);
+	rest.get(target, {'headers':{'Authorization':'Bearer ' + Config.accessToken}}).on('success', function(data) {
+		//var count = eval(data);
+		handler(null, JSON.parse(data).count);		
+	}).on('error', function(data) {
+		handler(new Error("Failed to load product count"), null);		
+	}).on('complete', function(data) {
+		console.timeEnd(target);		
+	});
+}
+
+exports.list = function (page, limit, handler) {
+	var target = Config.shopUrl + '/rest/products?fields=title,images&limit=' + limit + "&page=" + page;
+	console.log(target);
 	console.time(target);
 	rest.get(target, {'headers':{'Authorization':'Bearer ' + Config.accessToken}}).on('success', function(data) {		
 		for (var i = 0; i < data.length; i++) {

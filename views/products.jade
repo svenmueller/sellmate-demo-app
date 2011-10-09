@@ -4,7 +4,11 @@ script
 	});
 
 div#collection.column
-	p The page lists all available products.
+	p #{productsCount} products available
+	
+	!= partial('_pagination');
 
 	ol.product-list.group
 		!= partial('_product', products);
+		
+	!= partial('_pagination');
