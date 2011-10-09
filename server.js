@@ -70,17 +70,25 @@ app.get('/', function(req, res) {
   });
 });
 
-app.get('/products/page/:page', function(req, res) {
+app.get('/products/page/:page([0-9]+)', function(req, res) {
 	console.log("loading products");
-	res.render('products', {
-	    locals: {
-			title: 'Products'
-	   	},
-		'products': req.products,
-		'current': req.params.page,
-		'pages': parseInt(req.count / Config.pageLimit) + ((req.count % Config.pageLimit)?1:0),
-		'productsCount': req.count
-	});	
+
+	var page = parseInt(req.params.page);
+	var pages = parseInt(req.count / Config.pageLimit) + ((req.count % Config.pageLimit)?1:0);
+
+	if (page > pages) {
+		throw new NotFound('Page not found.');
+	} else {
+		res.render('products', {
+	    	locals: {
+				title: 'Products'
+	   		},
+			'products': req.products,
+			'current': page,
+			'pages': pages,
+			'productsCount': req.count
+		});
+	}	
 });
 
 app.get('/products/:productId', function(req, res) {
@@ -125,7 +133,7 @@ app.post('/products', createProduct, function(req, res) {
 	res.redirect('/products/' + req.product.id);
 });
 
-//A Route for Creating a 500 Error (Useful to keep around)
+// A Route for Creating a 500 Error (Useful to keep around)
 app.get('/500', function(req, res){
     throw new Error('This is a 500 Error');
 });
@@ -207,19 +215,6 @@ app.param('page', function(req, res, next, page) {
     	next();
   	});
 })
-
-function loadProducts(req, res, next) {
-	Product.list(1, Config.pageLimit, function(err, products) {
-		if (err) {
-			return next(err);
-		}
-    	if (!products) {
-			return next(new Error('failed to find products'));
-		}
-    	req.products = products;
-    	next();
-  	});
-}
 
 function loadProductsByCollection(req, res, next) {
 	Product.list(req.collectionId, function(err, products) {

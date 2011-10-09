@@ -1,5 +1,5 @@
 div.paginate
-	- if (pages > 1)
+	- if (pages > 1 && current <= pages)
 		ul
 			-if (current > 1)
 				a(href="/products/page/#{current - 1}")
@@ -12,7 +12,9 @@ div.paginate
 						- else
 							a(href="/products/page/#{page}") #{page}
 			-if (current < pages)
-				a(href="/products/page/#{current + 1}")
+				a(href="/products/page/#{current - (-1)}")
 					strong &rsaquo;
+	- else
+		No products found.
 				
 		
