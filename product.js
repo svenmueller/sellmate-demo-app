@@ -24,8 +24,7 @@ exports.count = function (handler) {
 	var target = Config.shopUrl + '/rest/products/count';	
 	console.time(target);
 	rest.get(target, {'headers':{'Authorization':'Bearer ' + Config.accessToken}}).on('success', function(data) {
-		//var count = eval(data);
-		handler(null, JSON.parse(data).count);		
+		handler(null, data.count);		
 	}).on('error', function(data) {
 		handler(new Error("Failed to load product count"), null);		
 	}).on('complete', function(data) {
