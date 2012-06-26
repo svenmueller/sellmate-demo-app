@@ -1,0 +1,29 @@
+{
+  "name": "sellmate-demo-app",
+  "description": "Private application that allows to display products and categories for a shop",
+  "version": "1.1.0",
+  "author": {
+    "name": "Sven Müller",
+    "email": "sven.mueller@commercetools.de"
+  },
+  "contributors": [
+    {
+      "name": "Nicola Molinari",
+      "email": "nicola.molinari@commercetools.de"
+    }
+  ]
+  "private": true,
+  "engines": [
+    "node >= 0.3.6"
+  ],
+  "main": "./app",
+  "dependencies": {
+    "express": "*",
+    "jade": "*",
+    "stylus": "*",
+    "nib": "*",
+    "request": "*"
+  },
+  "devDependencies": {},
+  "optionalDependencies": {}
+}
