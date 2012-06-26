@@ -1,5 +1,4 @@
 var fs = require('fs');
-var sys = require("sys")
 exports.defaultBoundary = '48940923NODERESLTER3890457293';
 
 

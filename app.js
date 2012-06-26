@@ -115,6 +115,27 @@ app.get('/*', function(req, res){
  */
 app.param('products', function(req, res, next, id) {
     // TODO: make sure that there is an access Token, otherwise request a new one
+    if (!req.session.oauth_access_token) {
+        var authUrl = oa.getAuthorizeUrl({
+            'shop': Config.shop
+        });
+        console.log("Getting auth url: " + authUrl);
+        res.redirect(authUrl);
+    } else {
+        next();
+    }
+});
+app.param('collections', function(req, res, next, id) {
+    // TODO: make sure that there is an access Token, otherwise request a new one
+    if (!req.session.oauth_access_token) {
+        var authUrl = oa.getAuthorizeUrl({
+            'shop': Config.shop
+        });
+        console.log("Getting auth url: " + authUrl);
+        res.redirect(authUrl);
+    } else {
+        next();
+    }
 });
 // Fetch a product
 app.param('productId', function(req, res, next, id) {
