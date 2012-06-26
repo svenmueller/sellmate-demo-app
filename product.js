@@ -1,10 +1,9 @@
 /**
  * Module dependencies.
  */
-var sys = require('sys'),
-	http = require('http'),
+var http = require('http'),
 	Config = require('./config'),
-    rest = require('./restler');
+    rest = require('./restler'); 
 
 
 exports.load = function (productId, handler) {	
@@ -63,10 +62,28 @@ exports.listByCollection = function (collectionId, handler) {
 	});
 }
 
+exports.prototype.create = function(req, res, next) {
+	var newProduct = {};
+	newProduct.title = "TEST Product";
+	newProduct.vendor = "vendor 1";
+	// TODO: create valid product
+	
+	Product._create(newProduct, function(err, product) {
+		if (err) {
+			return next(err);
+		}
+    	if (!product) {
+			return next(new Error('failed to create product'));
+		}
+    	req.product = product;
+    	next();
+  	});
+}
 
-exports.create = function (product, handler) {
+exports.prototype._create = function (product, handler) {
 	var target = Config.shopUrl + '/rest/products';
 	console.time(target);
+	// Wrong!
 	rest.post(target, {'headers':{'Authorization':'Bearer ' + Config.accessToken, 'Content-Type':'application/json'}, data: JSON.stringify(product)}).on('success', function(data) {
 		setMinMaxPrices(data);
 		handler(null, data);		
