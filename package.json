@@ -1,6 +1,14 @@
 {
   "name": "sellmate-demo-app",
   "description": "Private application that allows to display products and categories for a shop",
+  "tags": [
+    "sellmate",
+    "demo",
+    "app",
+    "rest",
+    "api",
+    "oauth"
+  ],
   "version": "1.1.0",
   "author": {
     "name": "Sven Müller",
@@ -17,6 +25,9 @@
     "node >= 0.3.6"
   ],
   "main": "./app",
+  "scripts": {
+    "test": "node tests/run.js"
+  },
   "dependencies": {
     "express": "*",
     "jade": "*",
